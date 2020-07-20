@@ -8,6 +8,8 @@ export enum TodoTypes {
     'REMOVE_TODO_REQUEST' = '@todo/REMOVE_TODO_REQUEST',
     'REMOVE_TODO_SUCCESS' = '@todo/REMOVE_TODO_SUCCESS',
     'CHANGE_TODO_REQUEST' = '@todo/CHANGE_TODO_REQUEST',
+    'ADD_TODO_REQUEST' = '@todo/ADD_TODO_SUCCESS',
+    'ADD_TODO_SUCCESS' = '@todo/ADD_TODO_SUCCESS',
   }
 
   export interface TodoData {

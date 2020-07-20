@@ -10,6 +10,7 @@ import { uuid } from 'uuidv4'
 
 function* getTodos() {
   //const todosData = localStorage.getItem("todoList")
+  console.log("from sagas")
   const mock = [
     {
         id: uuid(),
@@ -26,6 +27,18 @@ function* getTodos() {
   yield put(getTodosSuccess(mock))
 }
 
+function* addTodo({payload}: AnyAction){
+    const todos = yield select((state: ApplicationState) => state.todo.todos)
+    const newTodo = {
+        id: uuid(),
+        message: payload.message,
+        done: false
+    }
+
+    const updatedTodos = [newTodo, ...todos]
+    yield put(getTodosSuccess(updatedTodos))
+}
+
 function* removeTodo({ payload }: AnyAction) {
   const todos = yield select((state: ApplicationState) => state.todo.todos)
 
@@ -38,18 +51,18 @@ function* removeTodo({ payload }: AnyAction) {
 
 function* changeTodo({ payload }: AnyAction) {
     const todos = yield select((state: ApplicationState) => state.todo.todos)
-    todos.map(todo =>
+    const updatedTodos = todos.map((todo: TodoData) =>
         ({...todo, done: todo.id==payload.id?(!todo.done):(todo.done)})
 
     )
 
-    console.log(payload)
   
-    yield put(getTodosSuccess(todos))
+    yield put(getTodosSuccess(updatedTodos))
   }
 
 export default all([
   takeLatest(TodoTypes.GET_TODOS_REQUEST, getTodos),
   takeLatest(TodoTypes.REMOVE_TODO_REQUEST, removeTodo),
-  takeLatest(TodoTypes.CHANGE_TODO_REQUEST, changeTodo)
+  takeLatest(TodoTypes.CHANGE_TODO_REQUEST, changeTodo),
+  takeLatest(TodoTypes.ADD_TODO_REQUEST, addTodo),
 ])

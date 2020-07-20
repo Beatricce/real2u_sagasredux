@@ -3,12 +3,12 @@ import { uuid } from 'uuidv4'
 
 import './style.css'
 
-// import Redux Saga
+// imports Redux Saga
 import { useSelector, useDispatch } from 'react-redux'
 //port { setID, setDone, setMessage } from './store/modules/todo/actions'
 import { ApplicationState } from './store'
 
-import { getTodosRequest, removeTodoRequest, changeTodoRequest } from './store/modules/todo/actions'
+import { getTodosRequest, removeTodoRequest, changeTodoRequest, addTodoRequest} from './store/modules/todo/actions'
 
 import Todo from './components/Todo'
 
@@ -20,10 +20,30 @@ interface TodoData {
 
 
 function RenderTodos(){
-    const dispatch = useDispatch()
-    const todos = useSelector((state: ApplicationState) => state.todo.todos)
+
+    const [todoList, setTodoList] = useState<TodoData[]>([])
+    const [todo, setTodo] = useState("")
+
+    useEffect(() => {
+        const todos = localStorage.getItem("todoList")
+        if(todos){
+            setTodoList(JSON.parse(todos))
+        }
+    }, [])
     
     useEffect(() => {
+        localStorage.setItem('todoList', JSON.stringify(todoList))
+    }, [todoList])
+    
+
+
+    const dispatch = useDispatch()
+    const todos = useSelector((state: ApplicationState) => state.todo.todos)
+
+    
+    
+    useEffect(() => {
+        console.log("getTodosRequest")
         dispatch(getTodosRequest())
       }, [])
       
@@ -38,25 +58,21 @@ function RenderTodos(){
     }
 
 
-    /*function handleAdd() {
-        const newTodo = {
-            id: uuid(),
-            message: todo,
-            done: false
-        }
-        dispatch(removeTodoRequest(newTodo))
-    }*/
+    function handleAdd() {
+
+        dispatch(addTodoRequest(todo))
+    }
 
     return(
         <div id="todoList">
             <h1>TodoList</h1>
 
-            {/*<div className="todoInput">
+            <div className="todoInput">
                 <input type="text" value={todo} onChange={e=>setTodo(e.target.value)} />
                 <button type="button" 
                 className="addTodo"
-                onClick={addTodo}> Add</button>
-            </div>*/}
+                onClick={handleAdd}> Add</button>
+            </div>
 
             <div>
                 {
@@ -69,3 +85,5 @@ function RenderTodos(){
 
     
 }
+
+export default RenderTodos
