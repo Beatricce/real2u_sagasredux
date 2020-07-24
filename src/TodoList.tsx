@@ -13,7 +13,7 @@ import { getTodosRequest, removeTodoRequest, changeTodoRequest, addTodoRequest} 
 import Todo from './components/Todo'
 
 interface TodoData {
-    id: string,
+    _id: string,
     message: string,
     done: boolean
 }
@@ -47,14 +47,14 @@ function RenderTodos(){
         dispatch(getTodosRequest())
       }, [])
       
-    function handleDelete(id: string) {
-        alert("id to delete: " + id)
-        dispatch(removeTodoRequest(id))
+    function handleDelete(_id: string) {
+        alert("id to delete: " + _id)
+        dispatch(removeTodoRequest(_id))
     }
 
-    function changeStatus(id: string) {
-        alert("id to change: " + id)
-        dispatch(changeTodoRequest(id))
+    function changeStatus(_id: string) {
+        alert("id to change: " + _id)
+        dispatch(changeTodoRequest(_id))
     }
 
 

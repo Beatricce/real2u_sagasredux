@@ -2,7 +2,7 @@ import { Reducer } from 'redux'
 
 import { TodoState, TodoTypes } from './types'
 
-import { uuid } from 'uuidv4'
+//import { uuid } from 'uuidv4'
 
 const INITIAL_STATE: TodoState = {
     name: "Bia",

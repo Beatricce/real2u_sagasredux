@@ -6,15 +6,15 @@ import { BsArrowCounterclockwise } from 'react-icons/bs'
 import './style.css'
 
 interface TodoData {
-    id: string,
+    _id: string,
     message: string,
     done: boolean
 }
 
 interface Todo{
     todo: TodoData
-    handleDelete: (id: string) => void
-    changeStatus: (id: string) => void
+    handleDelete: (_id: string) => void
+    changeStatus: (_id: string) => void
 }
 
 
@@ -72,23 +72,23 @@ const TodoList: React.FC<Todo> = ({todo, handleDelete, changeStatus}: Todo) => {
     */
     
     return(
-    <div className="todo" key={todo.id}> 
+    <div className="todo" key={todo._id}> 
         <div>{todo.message}</div>
         <div className="actions">
             {
                 !todo.done?(
-                    <button onClick={() => changeStatus(todo.id)} type="button" className="icon">
+                    <button onClick={() => changeStatus(todo._id)} type="button" className="icon">
                     <AiFillCheckCircle color="#27ae60" />
                     </button>
                 ):(
-                    <button onClick={() => changeStatus(todo.id)} type="button" className="icon">
+                    <button onClick={() => changeStatus(todo._id)} type="button" className="icon">
                     <BsArrowCounterclockwise color= "#e67e22" />
                     </button>
                 )
             }
 
 
-            <button onClick={() => handleDelete(todo.id)} type="button" className="icon">
+            <button onClick={() => handleDelete(todo._id)} type="button" className="icon">
             <AiFillDelete color="#e74c3c" />
             </button>
             

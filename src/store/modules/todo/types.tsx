@@ -13,7 +13,7 @@ export enum TodoTypes {
   }
 
   export interface TodoData {
-    id: string
+    _id: string
     message: string
     done: boolean
   }
